@@ -1,7 +1,7 @@
 public class Casa {
     private String cor;
     private boolean ocupada = false;
-    private char conteudo;
+    private String conteudo;
     private String dominio;
     private boolean pecaEspecial = false;
 
@@ -21,11 +21,11 @@ public class Casa {
         this.ocupada = ocupada;
     }
 
-    public char getConteudo() {
+    public String getConteudo() {
         return conteudo;
     }
 
-    public void setConteudo(char conteudo) {
+    public void setConteudo(String conteudo) {
         this.conteudo = conteudo;
     }
 

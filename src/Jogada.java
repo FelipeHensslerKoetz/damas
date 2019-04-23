@@ -46,7 +46,7 @@ public class Jogada {
         }
 
         int linhaDestino = Character.getNumericValue(coordenada.charAt(4));
-        linhaDestino = (8 - linhaDestino);
+        linhaDestino = (8-linhaDestino);
         char colunaDestinoChar = coordenada.charAt(3);
         int colunaDestino = 0;
         switch (colunaDestinoChar) {
@@ -90,16 +90,16 @@ public class Jogada {
                 // Movimento
                 if (!tabuleiro[linhaDestino][colunaDestino].isOcupada() && (linhaDestino == linhaOrigem + 1) && (colunaDestino == colunaOrigem + 1 || colunaDestino == colunaOrigem - 1)) {
                     // Promovida
-                    if(linhaDestino == 7){
+                    if (linhaDestino == 7) {
                         tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
-                        tabuleiro[linhaDestino][colunaDestino].setConteudo((char)9923);
+                        tabuleiro[linhaDestino][colunaDestino].setConteudo(" D");
                         tabuleiro[linhaDestino][colunaDestino].setDominio(tabuleiro[linhaOrigem][colunaOrigem].getDominio());
                         tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(true);
 
                         tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
-                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo(' ');
-                        tabuleiro[linhaOrigem][colunaOrigem].setDominio("");
-                        tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(false);
+                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
+                        tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
+                        tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
 
                     } else {
                         tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
@@ -108,67 +108,103 @@ public class Jogada {
                         tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(tabuleiro[linhaOrigem][colunaOrigem].isPecaEspecial());
 
                         tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
-                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo(' ');
-                        tabuleiro[linhaOrigem][colunaOrigem].setDominio("");
-                        tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(false);
+                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
+                        tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
+                        tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
                     }
                     return true;
                 }
 
                 // Captura
-                if(!tabuleiro[linhaDestino][colunaDestino].isOcupada() && (linhaDestino == linhaOrigem + 2) && (colunaDestino == colunaOrigem + 2 ||colunaDestino == colunaOrigem +2) && (tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].getDominio().equals("Negras"))){
-                    if(linhaDestino == 7 ){
+                if (!tabuleiro[linhaDestino][colunaDestino].isOcupada() && (linhaDestino == linhaOrigem + 2) && (colunaDestino == colunaOrigem + 2 || colunaDestino == colunaOrigem -2) && (tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].getDominio().equals("Negras"))) {
+                    if (linhaDestino == 7) {
                         // Mover origem para destino
                         tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
-                        tabuleiro[linhaDestino][colunaDestino].setConteudo((char)9923);
+                        tabuleiro[linhaDestino][colunaDestino].setConteudo(" D");
                         tabuleiro[linhaDestino][colunaDestino].setDominio(tabuleiro[linhaOrigem][colunaOrigem].getDominio());
                         tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(true);
 
                         // Remover peca da origem
                         tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
-                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo(' ');
+                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
                         tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
                         tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
 
                         // Remover peca inimiga intermediaria
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setOcupada(false);
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setConteudo(' ');
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setDominio(" ");
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setPecaEspecial(false);
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setOcupada(false);
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setConteudo("  ");
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setDominio(" ");
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setPecaEspecial(false);
 
-                    } else{
+                    } else {
                         // Mover origem para destino
                         tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
                         tabuleiro[linhaDestino][colunaDestino].setConteudo(tabuleiro[linhaOrigem][colunaOrigem].getConteudo());
                         tabuleiro[linhaDestino][colunaDestino].setDominio(tabuleiro[linhaOrigem][colunaOrigem].getDominio());
-                        tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(false);
+                        tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(tabuleiro[linhaOrigem][colunaOrigem].isPecaEspecial());
 
                         // Remover peca da origem
                         tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
-                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo(' ');
+                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
                         tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
                         tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
 
                         // Remover peca inimiga intermediaria
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setOcupada(false);
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setConteudo(' ');
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setDominio(" ");
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setPecaEspecial(false);
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setOcupada(false);
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setConteudo("  ");
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setDominio(" ");
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setPecaEspecial(false);
                     }
 
                     // Desconta peca do jogador contrario !!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     return true;
                 }
-                System.out.println("Casa de destino invalida");
-                return false;
+
             }
 
             // Peca especial
             if (tabuleiro[linhaOrigem][colunaOrigem].isPecaEspecial()) {
 
+                // Movimento
+                if (!tabuleiro[linhaDestino][colunaDestino].isOcupada() && (linhaDestino == linhaOrigem + 1 || linhaDestino == linhaOrigem - 1) && (colunaDestino == colunaOrigem + 1 || colunaDestino == colunaOrigem - 1)) {
+                    tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
+                    tabuleiro[linhaDestino][colunaDestino].setConteudo(tabuleiro[linhaOrigem][colunaOrigem].getConteudo());
+                    tabuleiro[linhaDestino][colunaDestino].setDominio(tabuleiro[linhaOrigem][colunaOrigem].getDominio());
+                    tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(tabuleiro[linhaOrigem][colunaOrigem].isPecaEspecial());
+
+                    tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
+                    tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
+                    tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
+                    tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
+                    return true;
+                }
+
+                // Captura
+                if (!tabuleiro[linhaDestino][colunaDestino].isOcupada() && (linhaDestino == linhaOrigem + 2 || linhaDestino == linhaOrigem - 2) && (colunaDestino == colunaOrigem + 2 || colunaDestino == colunaOrigem - 2) && (tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].getDominio().equals("Negras"))){
+                    // Mover origem para destino
+                    tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
+                    tabuleiro[linhaDestino][colunaDestino].setConteudo(tabuleiro[linhaOrigem][colunaOrigem].getConteudo());
+                    tabuleiro[linhaDestino][colunaDestino].setDominio(tabuleiro[linhaOrigem][colunaOrigem].getDominio());
+                    tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(tabuleiro[linhaOrigem][colunaOrigem].isPecaEspecial());
+
+                    // Remover peca da origem
+                    tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
+                    tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
+                    tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
+                    tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
+
+                    // Remover peca inimiga intermediaria
+                    tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setOcupada(false);
+                    tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setConteudo("  ");
+                    tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setDominio(" ");
+                    tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setPecaEspecial(false);
+
+                    return true;
+                }
             }
 
-
+            System.out.println("Casa de destino invalida");
+            return false;
         }
 
         // Jogado de negras
@@ -181,18 +217,18 @@ public class Jogada {
             // Peca comum
             if (!tabuleiro[linhaOrigem][colunaOrigem].isPecaEspecial()) {
                 // Movimento
-                if(!tabuleiro[linhaDestino][colunaDestino].isOcupada() && (linhaDestino == linhaOrigem - 1) && (colunaDestino == colunaOrigem + 1 || colunaDestino == colunaOrigem - 1)){
+                if (!tabuleiro[linhaDestino][colunaDestino].isOcupada() && (linhaDestino == linhaOrigem - 1) && (colunaDestino == colunaOrigem + 1 || colunaDestino == colunaOrigem - 1)) {
                     // Testa promocao
-                    if(linhaDestino == 0){
+                    if (linhaDestino == 0) {
                         // Mover origem para destino
                         tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
-                        tabuleiro[linhaDestino][colunaDestino].setConteudo((char)9921);
+                        tabuleiro[linhaDestino][colunaDestino].setConteudo("*D");
                         tabuleiro[linhaDestino][colunaDestino].setDominio(tabuleiro[linhaOrigem][colunaOrigem].getDominio());
                         tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(true);
 
                         // Remover peca da origem
                         tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
-                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo(' ');
+                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
                         tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
                         tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
 
@@ -201,11 +237,11 @@ public class Jogada {
                         tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
                         tabuleiro[linhaDestino][colunaDestino].setConteudo(tabuleiro[linhaOrigem][colunaOrigem].getConteudo());
                         tabuleiro[linhaDestino][colunaDestino].setDominio(tabuleiro[linhaOrigem][colunaOrigem].getDominio());
-                        tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(false);
+                        tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(tabuleiro[linhaOrigem][colunaOrigem].isPecaEspecial());
 
                         // Remover peca da origem
                         tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
-                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo(' ');
+                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
                         tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
                         tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
                     }
@@ -213,25 +249,25 @@ public class Jogada {
                 }
 
                 // Captura peca comum
-                if(!tabuleiro[linhaDestino][colunaDestino].isOcupada() && (linhaDestino == linhaOrigem-2) &&  (colunaDestino == colunaOrigem+2 || colunaDestino == colunaOrigem-2) && (tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].getDominio().equals("Brancas"))){
-                    if(linhaDestino == 0){
+                if (!tabuleiro[linhaDestino][colunaDestino].isOcupada() && (linhaDestino == linhaOrigem - 2) && (colunaDestino == colunaOrigem + 2 || colunaDestino == colunaOrigem - 2) && (tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].getDominio().equals("Brancas"))) {
+                    if (linhaDestino == 0) {
                         // Mover origem para destino
                         tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
-                        tabuleiro[linhaDestino][colunaDestino].setConteudo((char)9921);
+                        tabuleiro[linhaDestino][colunaDestino].setConteudo("*D");
                         tabuleiro[linhaDestino][colunaDestino].setDominio(tabuleiro[linhaOrigem][colunaOrigem].getDominio());
                         tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(true);
 
                         // Remover peca da origem
                         tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
-                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo(' ');
+                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
                         tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
                         tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
 
                         // Remover peca inimiga intermediaria
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setOcupada(false);
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setConteudo(' ');
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setDominio(" ");
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setPecaEspecial(false);
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setOcupada(false);
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setConteudo("  ");
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setDominio(" ");
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setPecaEspecial(false);
 
 
                     } else {
@@ -239,25 +275,23 @@ public class Jogada {
                         tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
                         tabuleiro[linhaDestino][colunaDestino].setConteudo(tabuleiro[linhaOrigem][colunaOrigem].getConteudo());
                         tabuleiro[linhaDestino][colunaDestino].setDominio(tabuleiro[linhaOrigem][colunaOrigem].getDominio());
-                        tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(false);
+                        tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(tabuleiro[linhaOrigem][colunaOrigem].isPecaEspecial());
 
                         // Remover peca da origem
                         tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
-                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo(' ');
+                        tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
                         tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
                         tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
 
                         // Remover peca inimiga intermediaria
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setOcupada(false);
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setConteudo(' ');
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setDominio(" ");
-                        tabuleiro[(linhaOrigem+linhaDestino)/2][(colunaOrigem+colunaDestino)/2].setPecaEspecial(false);
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setOcupada(false);
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setConteudo("  ");
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setDominio(" ");
+                        tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setPecaEspecial(false);
 
                     }
                     return true;
                 }
-
-
 
 
                 System.out.println("Casa de destino invalida");
@@ -266,12 +300,44 @@ public class Jogada {
 
             // Peca especial
             if (tabuleiro[linhaOrigem][colunaOrigem].isPecaEspecial()) {
+                // Movimento
+                if(!tabuleiro[linhaDestino][colunaDestino].isOcupada() && (linhaDestino == linhaOrigem + 1 || linhaDestino == linhaOrigem - 1) && (colunaDestino == colunaOrigem + 1 || colunaDestino == colunaOrigem - 1)){
+                    tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
+                    tabuleiro[linhaDestino][colunaDestino].setConteudo(tabuleiro[linhaOrigem][colunaOrigem].getConteudo());
+                    tabuleiro[linhaDestino][colunaDestino].setDominio(tabuleiro[linhaOrigem][colunaOrigem].getDominio());
+                    tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(tabuleiro[linhaOrigem][colunaOrigem].isPecaEspecial());
 
+                    tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
+                    tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
+                    tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
+                    tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
+                    return true;
+                }
+
+                // Captura
+                if(!tabuleiro[linhaDestino][colunaDestino].isOcupada() && (linhaDestino == linhaOrigem + 2 || linhaDestino == linhaOrigem - 2) && (colunaDestino == colunaOrigem + 2 || colunaDestino == colunaOrigem - 2) && (tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].getDominio().equals("Brancas"))){
+                    // Mover origem para destino
+                    tabuleiro[linhaDestino][colunaDestino].setOcupada(tabuleiro[linhaOrigem][colunaOrigem].isOcupada());
+                    tabuleiro[linhaDestino][colunaDestino].setConteudo(tabuleiro[linhaOrigem][colunaOrigem].getConteudo());
+                    tabuleiro[linhaDestino][colunaDestino].setDominio(tabuleiro[linhaOrigem][colunaOrigem].getDominio());
+                    tabuleiro[linhaDestino][colunaDestino].setPecaEspecial(tabuleiro[linhaOrigem][colunaOrigem].isPecaEspecial());
+
+                    // Remover peca da origem
+                    tabuleiro[linhaOrigem][colunaOrigem].setOcupada(false);
+                    tabuleiro[linhaOrigem][colunaOrigem].setConteudo("  ");
+                    tabuleiro[linhaOrigem][colunaOrigem].setDominio(" ");
+                    tabuleiro[linhaOrigem][colunaOrigem].setPecaEspecial(false);
+
+                    // Remover peca inimiga intermediaria
+                    tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setOcupada(false);
+                    tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setConteudo("  ");
+                    tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setDominio(" ");
+                    tabuleiro[(linhaOrigem + linhaDestino) / 2][(colunaOrigem + colunaDestino) / 2].setPecaEspecial(false);
+
+                    return true;
+                }
             }
-
-
         }
-
         System.out.println("Nao joguei");
         return false;
     }
@@ -280,7 +346,6 @@ public class Jogada {
     private ArrayList jogadasValidas() {
         ArrayList jogadasValidas = new ArrayList();
         return jogadasValidas;
-
     }
 
 

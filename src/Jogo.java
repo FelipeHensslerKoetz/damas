@@ -27,21 +27,21 @@ public class Jogo {
                 }
 
                 // Valor default
-                tabuleiro[i][j].setConteudo(' ');
+                tabuleiro[i][j].setConteudo("  ");
 
                 // Preencher as peças do tabuleiro
                 switch (i) {
                     case 0:
                     case 2:
                         if (j % 2 != 0) {
-                            tabuleiro[i][j].setConteudo((char) 9922);
+                            tabuleiro[i][j].setConteudo(" O");
                             tabuleiro[i][j].setDominio("Brancas");
                             tabuleiro[i][j].setOcupada(true);
                         }
                         break;
                     case 1:
                         if (j % 2 == 0) {
-                            tabuleiro[i][j].setConteudo((char) 9922);
+                            tabuleiro[i][j].setConteudo(" O");
                             tabuleiro[i][j].setDominio("Brancas");
                             tabuleiro[i][j].setOcupada(true);
                         }
@@ -49,14 +49,14 @@ public class Jogo {
                     case 5:
                     case 7:
                         if (j % 2 == 0) {
-                            tabuleiro[i][j].setConteudo((char) 9920);
+                            tabuleiro[i][j].setConteudo("*O");
                             tabuleiro[i][j].setDominio("Negras");
                             tabuleiro[i][j].setOcupada(true);
                         }
                         break;
                     case 6:
                         if (j % 2 != 0) {
-                            tabuleiro[i][j].setConteudo((char) 9920);
+                            tabuleiro[i][j].setConteudo("*O");
                             tabuleiro[i][j].setDominio("Negras");
                             tabuleiro[i][j].setOcupada(true);
 
@@ -68,23 +68,32 @@ public class Jogo {
     }
 
     public void imprimirTabuleiro(){
-        System.out.println("Jogadas ae o momento: ");
-        for(int i =0; i<historicoJogadas.size();i++){
-            System.out.println(historicoJogadas.get(i));
-        }
-
-        System.out.println();
-        System.out.println("\n             a   b   c   d   e   f   g   h");
-        System.out.println();
-        for(int i =0; i<tabuleiro.length;i++){
-            System.out.print("       "+(tabuleiro.length-i)+" ");
-            for(int j = 0;j<tabuleiro[i].length;j++){
-                System.out.print("   "+tabuleiro[i][j].getConteudo());
-            }
+//        System.out.println("Jogadas ae o momento: ");
+//        for(int i =0; i<historicoJogadas.size();i++){
+//            System.out.println(historicoJogadas.get(i));
+//        }
+        for (int i=0;i<24;i++){
             System.out.println();
         }
-        System.out.println("\n             a   b   c   d   e   f   g   h");
 
+        System.out.println();
+        System.out.println("                 ["+jogador1.getNome()+"]");
+        System.out.println();
+        System.out.println("    A     B    C    D    E    F    G    H ");
+        System.out.println("  +----+----+----+----+----+----+----+----+");
+        for(int i =0; i<tabuleiro.length;i++){
+            System.out.print((tabuleiro.length-i)+" |");
+            for(int j = 0;j<tabuleiro[i].length;j++){
+                System.out.print(" "+tabuleiro[i][j].getConteudo()+" |");
+            }
+            System.out.print(" "+(tabuleiro.length-i));
+            System.out.println();
+            System.out.println("  +----+----+----+----+----+----+----+----+");
+        }
+        System.out.println("    A     B    C    D    E    F    G    H ");
+        System.out.println();
+        System.out.println("                 ["+jogador2.getNome()+"]");
+        System.out.println();
         // set status jogo false
     }
 
