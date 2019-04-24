@@ -2,7 +2,7 @@ public class Casa {
     private String cor;
     private boolean ocupada = false;
     private String conteudo;
-    private String dominio;
+    private String dominio = "";
     private boolean pecaEspecial = false;
 
     public String getCor() {

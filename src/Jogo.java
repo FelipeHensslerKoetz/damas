@@ -29,35 +29,36 @@ public class Jogo {
                 // Valor default
                 tabuleiro[i][j].setConteudo("  ");
 
+
                 // Preencher as peças do tabuleiro
                 switch (i) {
                     case 0:
                     case 2:
                         if (j % 2 != 0) {
-                            tabuleiro[i][j].setConteudo(" O");
-                            tabuleiro[i][j].setDominio("Brancas");
+                            tabuleiro[i][j].setConteudo("*O");
+                            tabuleiro[i][j].setDominio("Negras");
                             tabuleiro[i][j].setOcupada(true);
                         }
                         break;
                     case 1:
                         if (j % 2 == 0) {
-                            tabuleiro[i][j].setConteudo(" O");
-                            tabuleiro[i][j].setDominio("Brancas");
+                            tabuleiro[i][j].setConteudo("*O");
+                            tabuleiro[i][j].setDominio("Negras");
                             tabuleiro[i][j].setOcupada(true);
                         }
                         break;
                     case 5:
                     case 7:
                         if (j % 2 == 0) {
-                            tabuleiro[i][j].setConteudo("*O");
-                            tabuleiro[i][j].setDominio("Negras");
+                            tabuleiro[i][j].setConteudo(" O");
+                            tabuleiro[i][j].setDominio("Brancas");
                             tabuleiro[i][j].setOcupada(true);
                         }
                         break;
                     case 6:
                         if (j % 2 != 0) {
-                            tabuleiro[i][j].setConteudo("*O");
-                            tabuleiro[i][j].setDominio("Negras");
+                            tabuleiro[i][j].setConteudo(" O");
+                            tabuleiro[i][j].setDominio("Brancas");
                             tabuleiro[i][j].setOcupada(true);
 
                         }
@@ -68,16 +69,18 @@ public class Jogo {
     }
 
     public void imprimirTabuleiro(){
-//        System.out.println("Jogadas ae o momento: ");
-//        for(int i =0; i<historicoJogadas.size();i++){
-//            System.out.println(historicoJogadas.get(i));
-//        }
+        // Espacamento
         for (int i=0;i<24;i++){
             System.out.println();
         }
 
+        System.out.println("Jogadas ae o momento: ");
+        for(int i =0; i<historicoJogadas.size();i++){
+            System.out.print(historicoJogadas.get(i)+", ");
+        }
+
         System.out.println();
-        System.out.println("                 ["+jogador1.getNome()+"]");
+        System.out.println("                 ["+jogador2.getNome()+"]");
         System.out.println();
         System.out.println("    A     B    C    D    E    F    G    H ");
         System.out.println("  +----+----+----+----+----+----+----+----+");
@@ -92,7 +95,7 @@ public class Jogo {
         }
         System.out.println("    A     B    C    D    E    F    G    H ");
         System.out.println();
-        System.out.println("                 ["+jogador2.getNome()+"]");
+        System.out.println("                 ["+jogador1.getNome()+"]");
         System.out.println();
         // set status jogo false
     }
@@ -111,6 +114,8 @@ public class Jogo {
             System.out.println();
         } while(!jogadaRealizada);
 
+        // Adiciona a coordenada jogada
+        historicoJogadas.add(coordenada);
 
         // Altera o jogador se for sua vez de jogar
         if(this.jogadorAtual == this.jogador1){
@@ -131,15 +136,6 @@ public class Jogo {
 
         this.jogador1 = jogador1;
         this.jogador2 = jogador2;
-
-        System.out.println("Nome do player 1: "+this.jogador1.getNome());
-        System.out.println("Quantidade de peças: "+this.jogador1.getQuantidadeDePecas());
-        System.out.println("Cor: "+this.jogador1.getCor());
-        System.out.println();
-        System.out.println("Nome do player 2: "+this.jogador2.getNome());
-        System.out.println("Quantidade de peças: "+this.jogador2.getQuantidadeDePecas());
-        System.out.println("Cor: "+this.jogador2.getCor());
-
         this.jogadorAtual = jogador1;
     }
 
