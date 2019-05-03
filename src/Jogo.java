@@ -69,18 +69,30 @@ public class Jogo {
     }
 
     public void imprimirTabuleiro(){
+        // Analisa o numrto de pecas do jogador, se = 0 , fim do game
+        if( contagemPecas() == 0){
+            System.out.println(jogadorAtual.getNome()+" perdeu por insuficiencia material");
+        }
+
         // Espacamento
         for (int i=0;i<24;i++){
             System.out.println();
         }
 
+        int contador = 0;
         System.out.println("Jogadas ae o momento: ");
         for(int i =0; i<historicoJogadas.size();i++){
+            contador++;
+            if(contador > 5){
+                System.out.println();
+                contador = 0;
+            }
             System.out.print(historicoJogadas.get(i)+", ");
         }
 
         System.out.println();
-        System.out.println("                 ["+jogador2.getNome()+"]");
+        System.out.println();
+        System.out.println("                 "+jogador2.getNome()+" - "+jogador2.getQuantidadeDePecas()+ " peças");
         System.out.println();
         System.out.println("    A     B    C    D    E    F    G    H ");
         System.out.println("  +----+----+----+----+----+----+----+----+");
@@ -95,12 +107,17 @@ public class Jogo {
         }
         System.out.println("    A     B    C    D    E    F    G    H ");
         System.out.println();
-        System.out.println("                 ["+jogador1.getNome()+"]");
+        System.out.println("                 "+jogador1.getNome()+" - "+jogador1.getQuantidadeDePecas()+" peças");
         System.out.println();
         // set status jogo false
     }
 
     public void realizaJogada(){
+        // Verificar se existe alguma jogada possivel, fim de jogo
+
+
+
+
         // Testar se o jogo acabou
         String coordenada;
         boolean jogadaRealizada;
@@ -157,6 +174,21 @@ public class Jogo {
 
     public Casa[][] getTabuleiro() {
         return tabuleiro;
+    }
+
+    private int contagemPecas(){
+        int contador = 0;
+
+        for (int i = 0;i<tabuleiro.length;i++){
+            for(int j=0;j<tabuleiro[i].length;j++){
+                if(tabuleiro[i][j].getDominio().equals(jogadorAtual.getCor())){
+                    contador++;
+                }
+            }
+        }
+        jogadorAtual.setQuantidadeDePecas(contador);
+
+        return jogadorAtual.getQuantidadeDePecas();
     }
 
 }

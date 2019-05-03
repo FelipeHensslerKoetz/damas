@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 
 public class Jogada {
@@ -14,21 +14,18 @@ public class Jogada {
             return false;
         }
 
-        // Testa se o usuario realizou a captura obrigatoria - apenas para as brancas por enquanto
-//        if (jogador.getCor().equals("Brancas")) {
-            ArrayList capturasObg;
-            capturasObg = capturaObrigatoria(tabuleiro, jogador);
-            if (!capturasObg.isEmpty()) {
-                if (!capturasObg.contains(coordenada)) {
-                    System.out.print("Captura obrigatoria em: ");
-                    for (int i = 0; i < capturasObg.size(); i++) {
-                        System.out.print(capturasObg.get(i) + ", ");
-                    }
-                    return false;
+        ArrayList capturasObg;
+        capturasObg = capturaObrigatoria(tabuleiro, jogador);
+        if (!capturasObg.isEmpty()) {
+            if (!capturasObg.contains(coordenada)) {
+                System.out.print("Captura obrigatoria em: ");
+                for (int i = 0; i < capturasObg.size(); i++) {
+                    System.out.print(capturasObg.get(i) + ", ");
                 }
+                System.out.print(" escolha uma destas jogadas.");
+                return false;
             }
-//        }
-
+        }
 
 
 
@@ -369,78 +366,166 @@ public class Jogada {
 
     private ArrayList capturaObrigatoria(Casa[][] tabuleiro, Jogador jogador) {
         ArrayList capturasObrigatorias = new ArrayList();
+
         // Jogador de brancas
         if (jogador.getCor().equals("Brancas")) {
-        for (int i = 0; i < tabuleiro.length; i++) {
-            for (int j = 0; j < tabuleiro[i].length; j++) {
-                if ((i + j) % 2 == 0) {
-                    continue;
-                }
-                if (tabuleiro[i][j].getDominio().equals("Brancas") && !tabuleiro[i][j].isPecaEspecial()) {
-                    if((i-1 >=0 && i-1<=7) && (j-1>=0 && j-1<=7) && (i-2 >=0 && i-2 <=7) && (j-2>=0 && j-2<=7)){
-                        if(tabuleiro[i-1][j-1].getDominio().equals("Negras") && !tabuleiro[i-2][j-2].isOcupada()){
-                            System.out.println("Captura obirgatoria esquerda frente");
-                        }
-
+            for (int i = 0; i < tabuleiro.length; i++) {
+                for (int j = 0; j < tabuleiro[i].length; j++) {
+                    if ((i + j) % 2 == 0) {
+                        continue;
                     }
+                    if (tabuleiro[i][j].getDominio().equals("Brancas")) {
+                        if ((i - 1 >= 0 && i - 1 <= 7) && (j - 1 >= 0 && j - 1 <= 7) && (i - 2 >= 0 && i - 2 <= 7) && (j - 2 >= 0 && j - 2 <= 7)) {
+                            if (tabuleiro[i - 1][j - 1].getDominio().equals("Negras") && !tabuleiro[i - 2][j - 2].isOcupada()) {
+//                                System.out.println("Captura obrigatro esquerda frente");
+                               capturasObrigatorias.add(montaCoordenada(i,j,(i-2),(j-2)));
+                            }
 
-                    if((i-1 >=0 && i-1<=7) && (j+1>=0 && j+1 <=7) && (i-2>=0 && i-2<=7) && (j+2>=0 && j+2<=7)){
-                        if(tabuleiro[i-1][j+1].getDominio().equals("Negras") && !tabuleiro[i-2][j+2].isOcupada()){
-                            System.out.println("Captura obrigatoria direita frente");
                         }
+                        if ((i - 1 >= 0 && i - 1 <= 7) && (j + 1 >= 0 && j + 1 <= 7) && (i - 2 >= 0 && i - 2 <= 7) && (j + 2 >= 0 && j + 2 <= 7)) {
+                            if (tabuleiro[i - 1][j + 1].getDominio().equals("Negras") && !tabuleiro[i - 2][j + 2].isOcupada()) {
+//                                System.out.println("Captura obrigatoria direita frente");
+                                capturasObrigatorias.add(montaCoordenada(i,j,(i-2),(j+2)));
+                            }
 
-                    }
-                }
-
-                if(tabuleiro[i][j].getDominio().equals("Brancas") && tabuleiro[i][j].isPecaEspecial()){
-                    if((i-1 >=0 && i-1<=7) && (j-1>=0 && j-1<=7) && (i-2 >=0 && i-2 <=7) && (j-2>=0 && j-2<=7)){
-                        if(tabuleiro[i-1][j-1].getDominio().equals("Negras") && !tabuleiro[i-2][j-2].isOcupada()){
-                            System.out.println("Captura obirgatoria esquerda frente");
                         }
-                    }
-                    if((i-1 >=0 && i-1<=7) && (j+1>=0 && j+1 <=7) && (i-2>=0 && i-2<=7) && (j+2>=0 && j+2<=7)){
-                        if(tabuleiro[i-1][j+1].getDominio().equals("Negras") && !tabuleiro[i-2][j+2].isOcupada()){
-                            System.out.println("Captura obrigatoria direita frente");
-                        }
-                    }
+                        if (tabuleiro[i][j].isPecaEspecial()) {
+                            if ((i + 1 >= 0 && i + 1 <= 7) && (j - 1 >= 0 && j - 1 <= 7) && (i + 2 >= 0 && i + 2 <= 7) && (j - 2 >= 0 && j - 2 <= 7)) {
+                                if (tabuleiro[i + 1][j - 1].getDominio().equals("Negras") && !tabuleiro[i + 2][j - 2].isOcupada()) {
+//                                    System.out.println("Captura obrigatoria esquerda tras");
+                                    capturasObrigatorias.add(montaCoordenada(i,j,(i+2),(j-2)));
+                                }
+                            }
 
-                    if((i+1 >=0 && i+1<=7) && (j-1>=0 && j-1 <=7) && (i+2>=0 && i+2<=7) && (j-2>=0 && j-2<=7)){
-                        if (tabuleiro[i + 1][j - 1].getDominio().equals("Negras") && !tabuleiro[i + 2][j-2].isOcupada()) {
-                            System.out.println("Captura obrigatoria esquerda tras");
-                        }
-                    }
-
-                    if((i+1 >=0 && i+1<=7) && (j+1>=0 && j+1 <=7) && (i+2>=0 && i+2<=7) && (j+2>=0 && j+2<=7)){
-                        if (tabuleiro[i + 1][j + 1].getDominio().equals("Negras") && !tabuleiro[i + 2][j + 2].isOcupada()) {
-                            System.out.println("Captura obrigatoria direita tras");
+                            if ((i + 1 >= 0 && i + 1 <= 7) && (j + 1 >= 0 && j + 1 <= 7) && (i + 2 >= 0 && i + 2 <= 7) && (j + 2 >= 0 && j + 2 <= 7)) {
+                                if (tabuleiro[i + 1][j + 1].getDominio().equals("Negras") && !tabuleiro[i + 2][j + 2].isOcupada()) {
+//                                    System.out.println("Captura obrigatoria direita tras");
+                                    capturasObrigatorias.add(montaCoordenada(i,j,(i+2),(j+2)));
+                                }
+                            }
                         }
                     }
                 }
             }
         }
 
-    }
+        if(jogador.getCor().equals("Negras")){
+            for (int i =0; i<tabuleiro.length;i++){
+                for(int j=0;j<tabuleiro[i].length;j++){
+                    if ((i + j) % 2 == 0) {
+                        continue;
+                    }
+                    if(tabuleiro[i][j].getDominio().equals("Negras")){
+                        if ((i + 1 >= 0 && i + 1 <= 7) && (j - 1 >= 0 && j - 1 <= 7) && (i + 2 >= 0 && i + 2 <= 7) && (j - 2 >= 0 && j - 2 <= 7)) {
+                            if (tabuleiro[i + 1][j - 1].getDominio().equals("Brancas") && !tabuleiro[i + 2][j - 2].isOcupada()) {
+//                                System.out.println("Captura obrigatoria esquerda tras");
+                                capturasObrigatorias.add(montaCoordenada(i,j,(i+2),(j-2)));
+                            }
+                        }
+
+                        if ((i + 1 >= 0 && i + 1 <= 7) && (j + 1 >= 0 && j + 1 <= 7) && (i + 2 >= 0 && i + 2 <= 7) && (j + 2 >= 0 && j + 2 <= 7)) {
+                            if (tabuleiro[i + 1][j + 1].getDominio().equals("Brancas") && !tabuleiro[i + 2][j + 2].isOcupada()) {
+//                                System.out.println("Captura obrigatoria direita tras");
+                                capturasObrigatorias.add(montaCoordenada(i,j,(i+2),(j+2)));
+                            }
+                        }
+
+                        if(tabuleiro[i][j].isPecaEspecial()){
+                            if ((i - 1 >= 0 && i - 1 <= 7) && (j - 1 >= 0 && j - 1 <= 7) && (i - 2 >= 0 && i - 2 <= 7) && (j - 2 >= 0 && j - 2 <= 7)) {
+                                if (tabuleiro[i - 1][j - 1].getDominio().equals("Brancas") && !tabuleiro[i - 2][j - 2].isOcupada()) {
+//                                    System.out.println("Captura obirgatoria esquerda frente");
+                                    capturasObrigatorias.add(montaCoordenada(i,j,(i-2),(j-2)));
+                                }
+
+                            }
+                            if ((i - 1 >= 0 && i - 1 <= 7) && (j + 1 >= 0 && j + 1 <= 7) && (i - 2 >= 0 && i - 2 <= 7) && (j + 2 >= 0 && j + 2 <= 7)) {
+                                if (tabuleiro[i - 1][j + 1].getDominio().equals("Brancas") && !tabuleiro[i - 2][j + 2].isOcupada()) {
+//                                    System.out.println("Captura obrigatoria direita frente");
+                                    capturasObrigatorias.add(montaCoordenada(i,j,(i-2),(j+2)));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         return capturasObrigatorias;
     }
 
     private String montaCoordenada(int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino) {
-        // Formato de entrada
 
-        // a3-b4
-        // a = coluna origem
-        // 3 = linha origem
-        // -
-        // b = coluna destino
-        // 4 = linha destino
+        String coordenadaTexto;
 
-//        int linhaOriginal = linhaOrigem;
-//        int colunaOriginal = colunaOrigem;
-//        int linhaDestinacao = linhaDestino;
-//        int colunaDestinacao = colunaDestino;
-//
-//
-        return "";
+        int linhaOrigemParametro = linhaOrigem;
+        int colunaOrigemParametro = colunaOrigem;
+        int linhaDestinoParametro = linhaDestino;
+        int colunaDestinoParametro = colunaDestino;
+
+        char colunaOrigemCalculada= ' ';
+        char colunaDestinoCalculada = ' ';
+        int linhaOrigemCalculada = 8-linhaOrigemParametro;
+        int linhaDestinoCalculada = 8-linhaDestinoParametro;
+
+        // Pega e tranforma a primeira letra
+        switch (colunaOrigemParametro){
+            case 0:
+                colunaOrigemCalculada = 'a';
+                break;
+            case 1:
+                colunaOrigemCalculada = 'b';
+                break;
+            case 2:
+                colunaOrigemCalculada = 'c';
+                break;
+            case 3:
+                colunaOrigemCalculada = 'd';
+                break;
+            case 4:
+                colunaOrigemCalculada = 'e';
+                break;
+            case 5:
+                colunaOrigemCalculada = 'f';
+                break;
+            case 6:
+                colunaOrigemCalculada = 'g';
+                break;
+            case 7:
+                colunaOrigemCalculada = 'h';
+                break;
+        }
+
+        // Pega e transforma a segunda letra
+        switch(colunaDestinoParametro){
+            case 0:
+                colunaDestinoCalculada = 'a';
+                break;
+            case 1:
+                colunaDestinoCalculada = 'b';
+                break;
+            case 2:
+                colunaDestinoCalculada = 'c';
+                break;
+            case 3:
+                colunaDestinoCalculada = 'd';
+                break;
+            case 4:
+                colunaDestinoCalculada = 'e';
+                break;
+            case 5:
+                colunaDestinoCalculada = 'f';
+                break;
+            case 6:
+                colunaDestinoCalculada = 'g';
+                break;
+            case 7:
+                colunaDestinoCalculada = 'h';
+                break;
+        }
+
+        coordenadaTexto=""+colunaOrigemCalculada+linhaOrigemCalculada+"-"+colunaDestinoCalculada+linhaDestinoCalculada;
+
+        return coordenadaTexto;
 
     }
 
