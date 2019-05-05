@@ -9,10 +9,15 @@ public class Jogo {
     private Casa[][] tabuleiro = new Casa[8][8];
     private ArrayList historicoJogadas = new ArrayList();
     private Jogada jogada = new Jogada();
+    private CPU cpu = new CPU();
 
 
-    public Jogo() {
-        criarJogadores();
+    public Jogo(Jogador jogador1, Jogador jogador2) {
+        this.jogador1 = jogador1;
+        jogador1.setCor("Brancas");
+        this.jogador2 = jogador2;
+        jogador2.setCor("Negras");
+        this.jogadorAtual = jogador1;
         inicializarTabuleiro();
     }
 
@@ -113,26 +118,26 @@ public class Jogo {
     }
 
     public void realizaJogada(){
-        // Verificar se existe alguma jogada possivel, fim de jogo
+        // Testa se o jogo teminou (pontuar e resetar pecas dos jogadores )
 
 
 
 
-        // Testar se o jogo acabou
-        String coordenada;
-        boolean jogadaRealizada;
-        Scanner scanner = new Scanner(System.in);
-
-        // Regula o controle de jogdas
-        do{
-            System.out.print("Insira a sua jogada "+this.jogadorAtual.getNome()+": ");
-            coordenada = scanner.nextLine();
-            jogadaRealizada = jogada.validaJogada(tabuleiro,jogadorAtual,coordenada);
-            System.out.println();
-        } while(!jogadaRealizada);
-
-        // Adiciona a coordenada jogada
-        historicoJogadas.add(coordenada);
+        if(jogadorAtual.isHumano()){
+            String coordenada;
+            boolean jogadaRealizada;
+            Scanner scanner = new Scanner(System.in);
+            do{
+                System.out.print("Insira a sua jogada "+this.jogadorAtual.getNome()+": ");
+                coordenada = scanner.nextLine();
+                jogadaRealizada = jogada.validaJogada(tabuleiro,jogadorAtual,coordenada);
+                System.out.println();
+            } while(!jogadaRealizada);
+            historicoJogadas.add(coordenada);
+        } else {
+            String coordenada = cpu.lanceValido(tabuleiro,jogadorAtual);
+            historicoJogadas.add(coordenada);
+        }
 
         // Altera o jogador se for sua vez de jogar
         if(this.jogadorAtual == this.jogador1){
@@ -140,20 +145,6 @@ public class Jogo {
         } else {
             this.jogadorAtual = this.jogador1;
         }
-    }
-
-    private void criarJogadores(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Insira o nome do jogador das brancas: ");
-        String nome = scanner.nextLine();
-        Jogador jogador1 = new Jogador(nome,"Brancas");
-        System.out.print("Insira o nome do jogador das negras: ");
-        nome = scanner.nextLine();
-        Jogador jogador2 = new Jogador(nome,"Negras");
-
-        this.jogador1 = jogador1;
-        this.jogador2 = jogador2;
-        this.jogadorAtual = jogador1;
     }
 
     public Jogador getJogador1() {

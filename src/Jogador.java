@@ -3,10 +3,11 @@ public class Jogador {
     private String cor;
     private int quantidadeDePecas = 12;
     private int vitorias;
+    private boolean humano;
 
-    public Jogador(String nome, String cor) {
+    public Jogador(String nome, boolean humano) {
         this.nome = nome;
-        this.cor = cor;
+        this.humano = humano;
     }
 
     public String getNome() {
@@ -39,5 +40,13 @@ public class Jogador {
 
     public void setVitorias(int vitorias) {
         this.vitorias = vitorias;
+    }
+
+    public boolean isHumano() {
+        return humano;
+    }
+
+    public void setHumano(boolean humano) {
+        this.humano = humano;
     }
 }
